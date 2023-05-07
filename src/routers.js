@@ -28,7 +28,7 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
     console.log("localstorage:", localStorage.getItem('token'));
-    if (to.name !== 'TodoList' && !localStorage.getItem('token'))
+    if (to.name == 'TodoList' && !localStorage.getItem('token'))
         return { name: 'Login' };
 });
 

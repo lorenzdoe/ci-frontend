@@ -40,7 +40,7 @@ export default{
             else
             {
                 console.log(result.status);
-                alert(result.data);
+                alert("Invalid username or password");
             }
         }
     }
