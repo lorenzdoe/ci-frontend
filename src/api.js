@@ -5,7 +5,7 @@ const readTodos = async () => {
         'http://localhost:3000/todos',
         {
             headers: {
-                Authorization: 'Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhcGFzY2hsdW1wZiIsImlhdCI6MTY4MzQ2NzM0NywiZXhwIjoxNjgzNDcwOTQ3fQ.fOFr1KRFrpsvSiLzoh4lbA3xf7-fHrN0aywhOITsPVQ'
+                Authorization: 'Baerer '+localStorage.getItem('token')
             }
         }
     );
@@ -21,7 +21,7 @@ const createTodo = async (name) => {
         },
         {
             headers: {
-                Authorization: 'Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhcGFzY2hsdW1wZiIsImlhdCI6MTY4MzQ2NzM0NywiZXhwIjoxNjgzNDcwOTQ3fQ.fOFr1KRFrpsvSiLzoh4lbA3xf7-fHrN0aywhOITsPVQ'
+                Authorization: 'Baerer '+localStorage.getItem('token')
             }
         }
     );
@@ -35,7 +35,7 @@ const doneTodo = async (id) => {
         null,
         {
             headers: {
-                Authorization: 'Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhcGFzY2hsdW1wZiIsImlhdCI6MTY4MzQ2NzM0NywiZXhwIjoxNjgzNDcwOTQ3fQ.fOFr1KRFrpsvSiLzoh4lbA3xf7-fHrN0aywhOITsPVQ'
+                Authorization: 'Baerer '+localStorage.getItem('token')
             }
         }
     );
@@ -48,7 +48,7 @@ const undoneTodo = async (id) => {
         `http://localhost:3000/todos/${id}/done`,
         {
             headers: {
-                Authorization: 'Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhcGFzY2hsdW1wZiIsImlhdCI6MTY4MzQ2NzM0NywiZXhwIjoxNjgzNDcwOTQ3fQ.fOFr1KRFrpsvSiLzoh4lbA3xf7-fHrN0aywhOITsPVQ'
+                Authorization: 'Baerer '+localStorage.getItem('token')
             }
         }
     );
@@ -61,7 +61,14 @@ const login = async (username, password) => {
                 username: username,
                 password: password
             })
-            console.log(res.status);
+            return res;
+}
+
+const signup = async (username, password) => {
+    let res = await axios.post('http://localhost:3000/users', {
+                username: username,
+                password: password
+            })
             return res;
 }
 
@@ -71,5 +78,6 @@ export {
     createTodo,
     doneTodo,
     undoneTodo,
-    login
+    login,
+    signup
 }

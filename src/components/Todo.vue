@@ -15,6 +15,7 @@ export default {
     todo: Object
   },
   methods: {
+
     done() {
       if (this.todo.done) {
         this.$emit('undone', this.todo.id);

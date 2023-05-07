@@ -17,6 +17,7 @@ import Todo from "@/components/Todo.vue";
 import TodoInput from "@/components/TodoInput.vue";
 import {createTodo, doneTodo, readTodos, undoneTodo} from "@/api";
 
+
 export default {
   name: "TodoList",
   components: {TodoInput, Todo},
@@ -26,6 +27,7 @@ export default {
     }
   },
   methods: {
+    
     async getAll() {
       this.todos = await readTodos();
     },

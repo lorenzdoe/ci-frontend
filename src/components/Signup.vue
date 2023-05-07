@@ -1,22 +1,22 @@
 <template>
     <!-- To add: login image/logo -->
-    <h1>Login</h1>
+    <h1>Create account</h1>
     <div>
         <input type="text" placeholder="username" v-model="username">
         <br>
         <input type="password" placeholder="Enter password" v-model="password">
         <br>
-        <button @click="login">Login</button>
+        <button @click="signup">Sign-up</button>
         <br><br>
-        <a href="/signup" style="color: antiquewhite; ">Create an account</a>
+        <a href="/login" style="color: antiquewhite; ">Already have an account?</a>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-import {login} from '@/api'
+import {signup} from '@/api'
 export default{
-    name: 'Login',
+    name: 'Signup',
     data()
     {
         return {
@@ -25,17 +25,15 @@ export default{
         }
     },
     methods:{
-        async login()
+        async signup()
         {
             console.log(this.username, this.password);
-            let result = await login(this.username, this.password);
+            let result = await signup(this.username, this.password);
             console.log(result);
 
-            if(result.status == 200)
+            if(result.status == 201)
             {
-                console.log(result.data.token);
-                localStorage.setItem('token', result.data.token);
-                this.$router.push({name: 'TodoList'});
+                this.$router.push({name: 'Login'});
             }
             else
             {
