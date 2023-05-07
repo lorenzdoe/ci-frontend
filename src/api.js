@@ -33,9 +33,19 @@ const undoneTodo = async (id) => {
     return res.data;
 }
 
+const login = async (username, password) => {
+    let res = await axios.post('http://localhost:3000/sessions', {
+                username: username,
+                password: password
+            })
+            console.log(res.status);
+            return res;
+}
+
 export {
     readTodos,
     createTodo,
     doneTodo,
-    undoneTodo
+    undoneTodo,
+    login
 }

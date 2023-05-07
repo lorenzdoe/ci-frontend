@@ -4,7 +4,7 @@ import TodoList from "@/components/TodoList.vue";
 
 <template>
   <main>
-    <TodoList />
+    <router-view />
   </main>
 </template>
 
