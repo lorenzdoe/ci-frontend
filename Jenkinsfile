@@ -23,7 +23,7 @@ pipeline {
       
       steps {
         script {
-          sh "npm test"
+          sh "npm run test"
         }
       }
     }
