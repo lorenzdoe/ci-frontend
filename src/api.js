@@ -57,19 +57,29 @@ const undoneTodo = async (id) => {
 }
 
 const login = async (username, password) => {
-    let res = await axios.post('http://localhost:3000/sessions', {
-                username: username,
-                password: password
-            })
-            return res;
+    try {
+        let res = await axios.post('http://localhost:3000/sessions', {
+            username: username,
+            password: password
+        });
+        return res;
+    } catch (e) {
+        console.log(e.response);
+        return e.response;
+    }   
 }
 
 const signup = async (username, password) => {
-    let res = await axios.post('http://localhost:3000/users', {
-                username: username,
-                password: password
-            })
-            return res;
+    try {    
+        let res = await axios.post('http://localhost:3000/users', {
+            username: username,
+            password: password
+        })
+        return res;
+    } catch (e) {
+        console.log(e.response);
+        return e.response;
+    } 
 }
 
 

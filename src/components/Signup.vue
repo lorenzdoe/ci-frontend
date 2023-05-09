@@ -35,10 +35,16 @@ export default{
             {
                 this.$router.push({name: 'Login'});
             }
+            else if(result.status == 400)
+            {
+                if(result.data.errors.msg == undefined)
+                    alert(result.data.errors);
+                else
+                    alert(result.data.errors[0].msg + " " + result.data.errors[0].param);
+            }
             else
             {
-                console.log(result.status);
-                alert(result.data);
+                alert("Something went wrong");
             }
         }
     }

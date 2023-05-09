@@ -1,33 +1,33 @@
 <template>
+<Header />
   <ul>
     <li>
       <TodoInput @new-todo="post" />
     </li>
     <li v-for="(todo, i) in todos">
-      <Todo :todo="todo"
-            @done="done"
-            @undone="undone"
-      />
+      <Todo :todo="todo" @done="done" @undone="undone" />
     </li>
   </ul>
+  <!-- <button @click="handleLogout">Logout</button> -->
 </template>
 
 <script>
+import Header from "@/components/Header.vue";
 import Todo from "@/components/Todo.vue";
 import TodoInput from "@/components/TodoInput.vue";
-import {createTodo, doneTodo, readTodos, undoneTodo} from "@/api";
+import { createTodo, doneTodo, readTodos, undoneTodo } from "@/api";
 
 
 export default {
   name: "TodoList",
-  components: {TodoInput, Todo},
+  components: { Header, TodoInput, Todo },
   data() {
     return {
       todos: []
     }
   },
   methods: {
-    
+
     async getAll() {
       this.todos = await readTodos();
     },

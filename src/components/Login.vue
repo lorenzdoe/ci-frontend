@@ -27,9 +27,10 @@ export default{
     methods:{
         async login()
         {
-            console.log(this.username, this.password);
             let result = await login(this.username, this.password);
-            console.log(result);
+            //console.log(result);
+            //console.log(result.status);
+
 
             if(result.status == 200)
             {
@@ -37,10 +38,10 @@ export default{
                 localStorage.setItem('token', result.data.token);
                 this.$router.push({name: 'TodoList'});
             }
+            
             else
             {
-                console.log(result.status);
-                alert("Invalid username or password");
+                alert(result.data.errors);
             }
         }
     }
