@@ -1,12 +1,12 @@
-import Login from './components/Login.vue';
+import LoginComponent from './components/LoginComponent.vue';
 import TodoList from "@/components/TodoList.vue";
-import Signup from "@/components/Signup.vue";
+import SignupComponent from "@/components/SignupComponent.vue";
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
     {
         name: 'Login',
-        component: Login,
+        component: LoginComponent,
         path: '/login'
     },
     {
@@ -16,7 +16,7 @@ const routes = [
     },
     {
         name: 'Signup',
-        component: Signup,
+        component: SignupComponent,
         path: '/signup'
     }
 ];
@@ -29,7 +29,7 @@ const router = createRouter({
 router.beforeEach(async (to) => {
     console.log("localstorage:", localStorage.getItem('token'));
     if (to.name == 'TodoList' && !localStorage.getItem('token'))
-        return { name: 'Login' };
+        return { name: 'LoginComponent' };
 });
 
 export default router;

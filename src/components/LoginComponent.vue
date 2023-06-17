@@ -13,28 +13,28 @@
 </template>
 
 <script>
-import axios from 'axios'
-import {login} from '@/api'
+import {login} from '@/api';
 export default{
-    name: 'Login',
+    name: 'LoginComponent',
     data()
     {
         return {
             username: '',
             password: ''
-        }
+        };
     },
     methods:{
         async login()
         {
+            if(this.username == '' || this.password == '')
+            {
+                alert('Please enter username and password');
+                return;
+            }
             let result = await login(this.username, this.password);
-            //console.log(result);
-            //console.log(result.status);
-
 
             if(result.status == 200)
             {
-                console.log(result.data.token);
                 localStorage.setItem('token', result.data.token);
                 this.$router.push({name: 'TodoList'});
             }

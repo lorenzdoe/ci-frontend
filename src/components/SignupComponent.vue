@@ -13,23 +13,20 @@
 </template>
 
 <script>
-import axios from 'axios'
-import {signup} from '@/api'
+import {signup} from '@/api';
 export default{
-    name: 'Signup',
+    name: 'SignupComponent',
     data()
     {
         return {
             username: '',
             password: ''
-        }
+        };
     },
     methods:{
         async signup()
         {
-            console.log(this.username, this.password);
             let result = await signup(this.username, this.password);
-            console.log(result);
 
             if(result.status == 201)
             {
@@ -40,11 +37,11 @@ export default{
                 if(result.data.errors.msg == undefined)
                     alert(result.data.errors);
                 else
-                    alert(result.data.errors[0].msg + " " + result.data.errors[0].param);
+                    alert(result.data.errors[0].msg + ' ' + result.data.errors[0].param);
             }
             else
             {
-                alert("Something went wrong");
+                alert('Something went wrong');
             }
         }
     }
