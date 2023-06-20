@@ -1,8 +1,19 @@
 import axios from "axios";
 
+function getBackendPath() {
+    switch(process.env.NODE_ENV) {
+        case 'production':
+            return 'http://172.31.31.87:3000';
+        default:
+            return 'http://localhost:3000';
+    }
+}
+
+const backendPath = getBackendPath;
+
 const readTodos = async () => {
   let res = await axios.get(
-        'http://localhost:3000/todos',
+        backendPath + '/todos',
         {
             headers: {
                 Authorization: 'Baerer '+localStorage.getItem('token')
@@ -15,7 +26,7 @@ const readTodos = async () => {
 
 const createTodo = async (name) => {
     let res = await axios.post(
-        'http://localhost:3000/todos',
+        backendPath + '/todos',
         {
             'name': name
         },
@@ -31,7 +42,7 @@ const createTodo = async (name) => {
 
 const doneTodo = async (id) => {
     let res = await axios.put(
-        `http://localhost:3000/todos/${id}/done`,
+        backendPath + `/todos/${id}/done`,
         null,
         {
             headers: {
@@ -45,7 +56,7 @@ const doneTodo = async (id) => {
 
 const undoneTodo = async (id) => {
     let res = await axios.delete(
-        `http://localhost:3000/todos/${id}/done`,
+        backendPath + `/todos/${id}/done`,
         {
             headers: {
                 Authorization: 'Baerer '+localStorage.getItem('token')
@@ -58,7 +69,7 @@ const undoneTodo = async (id) => {
 
 const login = async (username, password) => {
     try {
-        let res = await axios.post('http://localhost:3000/sessions', {
+        let res = await axios.post( backendPath + '/sessions', {
             username: username,
             password: password
         });
@@ -71,7 +82,7 @@ const login = async (username, password) => {
 
 const signup = async (username, password) => {
     try {    
-        let res = await axios.post('http://localhost:3000/users', {
+        let res = await axios.post( backendPath + '/users', {
             username: username,
             password: password
         })
