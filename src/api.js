@@ -9,7 +9,9 @@ function getBackendPath() {
     }
 }
 
-const backendPath = getBackendPath;
+const backendPath = getBackendPath();
+
+console.log(backendPath);
 
 const readTodos = async () => {
   let res = await axios.get(
