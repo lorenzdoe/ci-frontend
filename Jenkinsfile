@@ -59,11 +59,7 @@ pipeline {
       // deploy to aws
       steps {
           sshagent(credentials: ['aws_ssh_creds']) {
-            sh '''
-                [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-                ssh-keyscan -t rsa,dsa 35.153.242.153 >> ~/.ssh/known_hosts
-                ssh ubuntu@35.153.242.153 "echo hello_world"
-            '''
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@$AWS_SSH_CREDS_USR \"echo hello_world\""
           }
       }
     }
