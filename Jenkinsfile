@@ -53,5 +53,16 @@ pipeline {
       }
     }
 
+    stage("DEPLOY") {
+      // deploy to aws
+    }
+
+  }
+}
+
+post { 
+  always {
+    sh "docker image rm $IMAGE_NAME:$IMAGE_TAG"
+    cleanWs()
   }
 }
