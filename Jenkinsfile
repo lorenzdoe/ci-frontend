@@ -58,16 +58,13 @@ pipeline {
     stage("DEPLOY") {
       // deploy to aws
       steps {
-        script {
-        def remote = [:]
-        remote.name = 'frontend'
-        remote.host = "$AWS_SSH_CREDS_USR"
-        remote.user = 'ubuntu'
-        remote.password = "$AWS_SSH_CREDS_PSW"
-        remote.allowAnyHosts = true
-        
-        sshCommand remote: remote, command: "echo hello_world"
-        }
+          sshagent(credentials: ['aws_ssh_creds']) {
+            sh "
+                [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                ssh-keyscan -t rsa,dsa $AWS_SSH_CREDS_USR >> ~/.ssh/known_hosts
+                ssh ubuntu@$AWS_SSH_CREDS_USR 'echo hello_world'
+            "
+          }
       }
     }
 
