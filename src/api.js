@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const readTodos = async () => {
   let res = await axios.get(
@@ -11,7 +11,7 @@ const readTodos = async () => {
     );
 
   return res.data;
-}
+};
 
 const createTodo = async (name) => {
     let res = await axios.post(
@@ -27,7 +27,7 @@ const createTodo = async (name) => {
     );
 
     return res.data;
-}
+};
 
 const doneTodo = async (id) => {
     let res = await axios.put(
@@ -41,7 +41,7 @@ const doneTodo = async (id) => {
     );
 
     return res.data;
-}
+};
 
 const undoneTodo = async (id) => {
     let res = await axios.delete(
@@ -54,7 +54,7 @@ const undoneTodo = async (id) => {
     );
 
     return res.data;
-}
+};
 
 const login = async (username, password) => {
     try {
@@ -64,23 +64,21 @@ const login = async (username, password) => {
         });
         return res;
     } catch (e) {
-        console.log(e.response);
         return e.response;
     }   
-}
+};
 
 const signup = async (username, password) => {
     try {    
         let res = await axios.post('http://localhost:3000/users', {
             username: username,
             password: password
-        })
+        });
         return res;
     } catch (e) {
-        console.log(e.response);
         return e.response;
     } 
-}
+};
 
 
 export {
@@ -90,4 +88,4 @@ export {
     undoneTodo,
     login,
     signup
-}
+};

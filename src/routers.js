@@ -1,6 +1,6 @@
 import LoginComponent from './components/LoginComponent.vue';
-import TodoList from "@/components/TodoList.vue";
-import SignupComponent from "@/components/SignupComponent.vue";
+import TodoList from '@/components/TodoList.vue';
+import SignupComponent from '@/components/SignupComponent.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -27,7 +27,6 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-    console.log("localstorage:", localStorage.getItem('token'));
     if (to.name == 'TodoList' && !localStorage.getItem('token'))
         return { name: 'LoginComponent' };
 });

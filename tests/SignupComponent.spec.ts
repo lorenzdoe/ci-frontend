@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import SignupComponent from "src/components/SignupComponent.vue"
+import SignupComponent from "../src/components/SignupComponent.vue"
 import { describe, it, expect, vi } from "vitest";
 
 describe('SignupComponent', () => {

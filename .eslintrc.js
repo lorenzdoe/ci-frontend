@@ -1,25 +1,17 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+    root: true,
+    env: {
+      node: true,
+      jest: true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:vue/vue3-essential"
+    extends: ['plugin:vue/vue3-essential', 'eslint:recommended'],
+    'plugins': [
+        'vue'
     ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "vue"
-    ],
-    "rules": {
+    rules: {
         'no-console': 'warn',
         'no-unused-vars': 'warn',
         'semi': ['error', 'always'],
         'quotes': ['error', 'single'],
-    }
-}
+    },
+};

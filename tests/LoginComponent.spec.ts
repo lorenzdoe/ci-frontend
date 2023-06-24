@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import LoginComponent from "src/components/LoginComponent.vue"
+import LoginComponent from "../src/components/LoginComponent.vue"
 import { describe, it, expect, vi } from "vitest";
 
 describe('LoginComponent', () => {
@@ -20,6 +20,14 @@ describe('LoginComponent', () => {
         expect(wrapper.vm.username).toBe('testuser');
         expect(wrapper.vm.password).toBe('testpassword');
     });
+
+    // it('should call the login function when login button is clicked', async () => {
+    //     const wrapper = mount(LoginComponent);
+    //     expect(wrapper.find("button").exists()).toBe(true);
+
+    //     const ac = await wrapper.get("button").trigger("click")
+    //     expect(wrapper.vm.login).toHaveBeenCalled();
+    // });
 
     // it('logs in successfully when valid username and password are entered', async () => {
     //     const wrapper = mount(LoginComponent);
