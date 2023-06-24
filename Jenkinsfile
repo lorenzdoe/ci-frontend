@@ -17,13 +17,12 @@ pipeline {
     stage("LINT-TEST") {
       agent {
         docker {
-          image "node"
+          image "node:alpine"
         }
       }
       
       steps {
         script {
-          sh "ls"
           sh "npm install"
           sh "npm run lint"
           sh "npm run test"
