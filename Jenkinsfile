@@ -55,6 +55,9 @@ pipeline {
 
     stage("DEPLOY") {
       // deploy to aws
+      steps {
+        sh "echo deploy_stage"
+      }
     }
 
   }
