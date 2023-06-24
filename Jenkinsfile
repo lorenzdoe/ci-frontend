@@ -13,6 +13,7 @@ pipeline {
     NODE_ENV = "production"
     IMAGE_NAME = "cicltechnikum/conint-sem-frontend"
     IMAGE_TAG = "latest"
+    DOCKER_HUB_PW = credentials("docker_hub_credentials")
   }
   
   stages {
@@ -45,7 +46,7 @@ pipeline {
       // push to docker hub
       steps {
         script {
-          sh "echo cicltechnikum2022 | docker login -u cicltechnikum --password-stdin"
+          sh "echo $DOCKER_HUB_PW | docker login -u cicltechnikum --password-stdin"
           sh "docker push $IMAGE_NAME:$IMAGE_TAG"
         }
       }
