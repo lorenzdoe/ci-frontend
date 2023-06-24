@@ -59,7 +59,7 @@ pipeline {
     stage("DEPLOY") {
       // deploy to aws
       steps {
-        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+        timeout(time: 2, unit: 'MINUTES') {
           sshagent(credentials: ['aws_ssh_creds']) {
             sh "ssh -o StrictHostKeyChecking=no ubuntu@$AWS_SSH_CREDS_USR \"nohup ./deploy_script.sh\""
           }
