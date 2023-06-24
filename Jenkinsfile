@@ -59,7 +59,7 @@ pipeline {
       // deploy to aws
       steps {
           sshagent(credentials: ['aws_ssh_creds']) {
-            sh "ssh -o StrictHostKeyChecking=no ubuntu@$AWS_SSH_CREDS_USR \"echo 'works' > works.txt\""
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@$AWS_SSH_CREDS_USR \"echo 'it really works' > works.txt\""
           }
       }
     }
