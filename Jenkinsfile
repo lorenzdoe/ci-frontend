@@ -14,7 +14,7 @@ pipeline {
   }
   
   stages {
-    stage("SETUP") {
+    stage("LINT-TEST") {
       agent {
         docker {
           image "node"
@@ -23,6 +23,8 @@ pipeline {
       
       steps {
         script {
+          sh "npm install"
+          sh "npm run lint"
           sh "npm run test"
         }
       }
