@@ -2,15 +2,15 @@ import axios from "axios";
 
 function getBackendPath() {
     switch(process.env.NODE_ENV) {
-        case 'production':
-            return 'http://172.31.31.87:3000';
+        case 'production':                     // atuomatically set in nginx docker image
+            return 'http://3.230.232.40:3000'; // elastic ip of backend
         default:
             return 'http://localhost:3000';
     }
 }
 
 const backendPath = getBackendPath();
-
+console.log("NODE_ENV: " + process.env.NODE_ENV);
 console.log(backendPath);
 
 const readTodos = async () => {
