@@ -34,7 +34,7 @@ pipeline {
       // build docker image
       steps {
         script {
-          sh "docker build -t cicltechnikum/conint-sem-frontend:latest"
+          sh "docker build -t cicltechnikum/conint-sem-frontend:latest ."
         }
       }
     }
