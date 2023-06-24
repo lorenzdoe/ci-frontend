@@ -23,7 +23,7 @@ pipeline {
       
       steps {
         script {
-          sh "npm install"
+          sh "npm ci --also=dev"
           sh "npm run lint"
           sh "npm run test"
         }
