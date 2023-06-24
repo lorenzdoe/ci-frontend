@@ -29,5 +29,26 @@ pipeline {
         }
       }
     }
+
+    stage("BUILD") {
+      // build docker image
+      steps {
+        script {
+          sh "docker build -t cicltechnikum/conint-sem-frontend:latest"
+        }
+      }
+    }
+
+    stage("DELIVER") {
+      // push to docker hub
+      steps {
+        script {
+          sh "echo cicltechnikum2022 | docker login -u cicltechnikum --password-stdin"
+          sh "docker push cicltechnikum/conint-sem-frontend:latest"
+        }
+      }
+    }
+
+    }
   }
 }
