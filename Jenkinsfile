@@ -23,6 +23,7 @@ pipeline {
       
       steps {
         script {
+          sh "ls"
           sh "npm install"
           sh "npm run lint"
           sh "npm run test"
