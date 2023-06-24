@@ -54,13 +54,14 @@ pipeline {
       }
     }
 
+    def remote = [:]
+    remote.name = 'frontend'
+    remote.host = "$AWS_SSH_CREDS_USR"
+    remote.user = 'ubuntu'
+    remote.password = "$AWS_SSH_CREDS_PSW"
+    remote.allowAnyHosts = true
+    
     stage("DEPLOY") {
-      def remote = [:]
-      remote.name = 'frontend'
-      remote.host = "$AWS_SSH_CREDS_USR"
-      remote.user = 'ubuntu'
-      remote.password = "$AWS_SSH_CREDS_PSW"
-      remote.allowAnyHosts = true
       // deploy to aws
       steps {
         sshCommand remote: remote, command: "echo hello_world"
