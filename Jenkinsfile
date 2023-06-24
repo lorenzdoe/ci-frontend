@@ -15,6 +15,7 @@ pipeline {
     IMAGE_TAG = "latest"
     DOCKER_HUB_CREDS = credentials('docker_hub_credentials') // saves username:password
     // automatically creates DOCKER_HUB_CREDS_USR and DOCKER_HUB_CREDS_PSW
+    AWS_SSH_CREDS = credentials('aws_ssh_creds')
   }
   
   stages {
@@ -54,9 +55,15 @@ pipeline {
     }
 
     stage("DEPLOY") {
+      def remote = [:]
+      remote.name = 'frontend'
+      remote.host = "$AWS_SSH_CREDS_USR"
+      remote.user = 'ubuntu'
+      remote.password = "$AWS_SSH_CREDS_PSW"
+      remote.allowAnyHosts = true
       // deploy to aws
       steps {
-        sh "echo deploy_stage"
+        sshCommand remote: remote, command: "echo hello_world"
       }
     }
 
@@ -65,7 +72,7 @@ pipeline {
 
 post { 
   always {
-    sh "docker image rm $IMAGE_NAME:$IMAGE_TAG"
+    sh "docker image rm $IMAGE_NAME"
     cleanWs()
   }
 }
