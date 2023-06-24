@@ -17,7 +17,7 @@ pipeline {
     stage("LINT-TEST") {
       agent {
         docker {
-          image "node"
+          image "node:alpine"
         }
       }
       
