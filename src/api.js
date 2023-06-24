@@ -10,8 +10,6 @@ function getBackendPath() {
 }
 
 const backendPath = getBackendPath();
-console.log("NODE_ENV: " + process.env.NODE_ENV);
-console.log(backendPath);
 
 const readTodos = async () => {
   let res = await axios.get(
