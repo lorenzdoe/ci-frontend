@@ -13,7 +13,7 @@ pipeline {
     NODE_ENV = "production"
     IMAGE_NAME = "cicltechnikum/conint-sem-frontend"
     IMAGE_TAG = "latest"
-    DOCKER_HUB_PW = credentials("docker_hub_credentials")
+    DOCKER_HUB_PW = credentials("docker_hub_credentials").password
   }
   
   stages {
