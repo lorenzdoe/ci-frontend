@@ -11,6 +11,8 @@ pipeline {
   
   environment {
     NODE_ENV = "production"
+    IMAGE_NAME = "cicltechnikum/conint-sem-frontend"
+    IMAGE_TAG = "latest"
   }
   
   stages {
@@ -34,7 +36,7 @@ pipeline {
       // build docker image
       steps {
         script {
-          sh "docker build -t cicltechnikum/conint-sem-frontend:latest ."
+          sh "docker build -t $IMAGE_NAME:$IMAGE_TAG ."
         }
       }
     }
@@ -44,7 +46,7 @@ pipeline {
       steps {
         script {
           sh "echo cicltechnikum2022 | docker login -u cicltechnikum --password-stdin"
-          sh "docker push cicltechnikum/conint-sem-frontend:latest"
+          sh "docker push $IMAGE_NAME:$IMAGE_TAG"
         }
       }
     }
