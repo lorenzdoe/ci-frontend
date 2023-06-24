@@ -13,9 +13,10 @@ pipeline {
     NODE_ENV = "production"
     IMAGE_NAME = "cicltechnikum/conint-sem-frontend"
     IMAGE_TAG = "latest"
-    DOCKER_HUB_CREDS = credentials('docker_hub_credentials') // saves username:password
-    // automatically creates DOCKER_HUB_CREDS_USR and DOCKER_HUB_CREDS_PSW
+    DOCKER_HUB_CREDS = credentials('docker_hub_credentials') // saves as username:password
     AWS_SSH_CREDS = credentials('aws_ssh_creds')
+    // setting credentials
+    // automatically creates DOCKER_HUB_CREDS_USR and DOCKER_HUB_CREDS_PSW
   }
   
   stages {
@@ -58,9 +59,11 @@ pipeline {
     stage("DEPLOY") {
       // deploy to aws
       steps {
+        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
           sshagent(credentials: ['aws_ssh_creds']) {
             sh "ssh -o StrictHostKeyChecking=no ubuntu@$AWS_SSH_CREDS_USR \"nohup ./deploy_script.sh\""
           }
+        }
       }
     }
 
