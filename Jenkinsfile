@@ -66,10 +66,3 @@ pipeline {
 
   }
 }
-
-post { 
-  always {
-    sh "docker image rm $IMAGE_NAME"
-    cleanWs()
-  }
-}
