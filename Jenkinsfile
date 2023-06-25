@@ -21,6 +21,11 @@ pipeline {
   
   stages {
     stage("LINT-TEST") {
+      when {
+        expression {
+          return env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'production'
+        }
+      }
       agent {
         docker {
           image "node:alpine"
@@ -38,6 +43,11 @@ pipeline {
 
     stage("BUILD") {
       // build docker image
+      when {
+        expression {
+          return env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'production'
+        }
+      }
       steps {
         script {
           sh "docker build -t $IMAGE_NAME:$IMAGE_TAG ."
