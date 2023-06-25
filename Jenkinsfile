@@ -71,7 +71,11 @@ pipeline {
         }
       }
     }
+  }
 
+  when {
+    branch 'main'
+    branch 'production'
   }
 
   triggers {
