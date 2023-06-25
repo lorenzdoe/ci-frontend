@@ -21,10 +21,6 @@ pipeline {
   
   stages {
     stage("LINT-TEST") {
-      when {
-        branch 'main'
-        branch 'production'
-      }
       agent {
         docker {
           image "node:alpine"
@@ -42,10 +38,6 @@ pipeline {
 
     stage("BUILD") {
       // build docker image
-      when {
-        branch 'main'
-        branch 'production'
-      }
       steps {
         script {
           sh "docker build -t $IMAGE_NAME:$IMAGE_TAG ."
