@@ -55,7 +55,6 @@ pipeline {
       }
     }
 
-    
     stage("DEPLOY") {
       // deploy to aws
       steps {
