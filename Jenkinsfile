@@ -47,6 +47,9 @@ pipeline {
 
     stage("DELIVER") {
       // push to docker hub
+      when {
+        branch 'production'
+      }
       steps {
         script {
           sh "echo $DOCKER_HUB_CREDS_PSW | docker login -u $DOCKER_HUB_CREDS_USR --password-stdin"
@@ -57,6 +60,9 @@ pipeline {
 
     stage("DEPLOY") {
       // deploy to aws
+      when {
+        branch 'production'
+      }
       steps {
         timeout(time: 2, unit: 'MINUTES') {
           sshagent(credentials: ['aws_ssh_creds']) {
