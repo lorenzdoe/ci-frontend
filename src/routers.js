@@ -26,9 +26,12 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach(async (to) => {
-    if (to.name == 'TodoList' && !localStorage.getItem('token'))
-        return { name: 'LoginComponent' };
+router.beforeEach(async (to, from, next) => {
+    if (to.name === 'TodoList' && !localStorage.getItem('token')) {
+        next({ name: 'Login' });
+    } else {
+        next();
+    }
 });
 
 export default router;
