@@ -36,6 +36,7 @@ export default{
             if(result.status == 200)
             {
                 localStorage.setItem('token', result.data.token);
+                localStorage.setItem('username', this.username);
                 this.$router.push({name: 'TodoList'});
             }
             

@@ -101,6 +101,23 @@ const isFeatureEnabled = async (name) => {
     }
 };
 
+const toggleFeature = async (name) => {
+    try {
+        let res = await axios.put(
+            backendPath + '/features/' + name,
+            null,
+            {
+                headers: {
+                    Authorization: 'Baerer ' + localStorage.getItem('token')
+                }
+            }
+        );
+        return res.data;
+    } catch (e) {
+        return e.response;
+    }  
+};
+
 export {
     readTodos,
     createTodo,
@@ -108,5 +125,6 @@ export {
     undoneTodo,
     login,
     signup,
-    isFeatureEnabled
+    isFeatureEnabled,
+    toggleFeature
 };

@@ -1,18 +1,31 @@
 <template>
     <div class="nav">
-    <p>To-do List</p>
+    <div>
+        <p>To-do List</p>
+        <button v-if="(isAdmin())" class="feature-toggle" @click="toggleFeature">toggle feature</button>
+    </div>
     <button class="logout-button" @click="handleLogout">Logout</button>
     </div>
 </template>
 
 <script>
+import { toggleFeature } from "@/api";
 export default {
     name: 'Header',
     methods: {
         handleLogout()
         {
-            localStorage.removeItem('token');
+            localStorage.clear();
             this.$router.push({name: 'Login'});
+        },
+        async toggleFeature() {
+            await toggleFeature('sortTodos');
+            window.location.reload();
+        }, 
+        isAdmin() {
+            // very simple check and can be changed by users
+            // but server checks also for permissions when toggling feature
+            return localStorage.getItem('username') == 'admin';
         }
     }
 }
@@ -20,12 +33,13 @@ export default {
 
 <style scoped>
 
-div{
+div {
+    display: flex;
+}
+
+.nav{
     display: flex;
     justify-content: space-between;
-    
-}
-.nav{
     background-color: #333;
     overflow: hidden;
     position: fixed;
@@ -47,17 +61,23 @@ div{
     font-size: 22px;
 }
 
-.nav button.logout-button {
-  color: rgba(235, 235, 235, 0.64);
-  text-decoration: none;
-  font-size: 18px;
-  background: none;
-  border: none;
-  cursor: pointer;
+.nav button {
+    color: rgba(235, 235, 235, 0.64);
+    text-decoration: none;
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-.nav button.logout-button:hover {
+.nav button.feature-toggle {
+    border: 1px solid rgba(235, 235, 235, 0.64);;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 30px;
+}
+
+.nav button:hover {
     color: white;
 }
-
 </style>

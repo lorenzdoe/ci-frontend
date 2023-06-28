@@ -44,21 +44,32 @@ export default {
       // Sort by undone todos first
       if (a.done && !b.done) return 1;
       if (!a.done && b.done) return -1;
+      // Sort todos without date first
+      if (a.date != null && b.date == null) return 1;
+      if (a.date == null && b.date != null) return -1;
       // Sort by date for todos with the same done status
       return new Date(a.date) - new Date(b.date);
-    });
-      console.log(sorted);
-      const grouped = {};
+      });
+
+      const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      const grouped = {}
       sorted.forEach(todo => {
-        const date = new Date(todo.date).toLocaleDateString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric'
-        });
-        if (!grouped[date]) {
-          grouped[date] = [];
+        if(todo.date != null) {
+          let date = new Date(todo.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+          // move undone todos from the past in today
+          date = date < today && !todo.done ? today : date;
+          if (!grouped[date]) {
+            grouped[date] = [];
+          }
+          grouped[date].push(todo);
         }
-        grouped[date].push(todo);
+        else {
+          if (!grouped["without date"]) {
+            grouped["without date"] = [];
+          }
+          grouped["without date"].push(todo);
+        }
       });
       return grouped;
     }
@@ -102,11 +113,11 @@ ul {
 }
 .title {
   text-align: center;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .input-field {
-  border-radius: 30px;
+  border-radius: 20px;
   background-color: #333;
   padding-top: 6px;
   padding-bottom: 6px;
