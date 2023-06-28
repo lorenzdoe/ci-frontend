@@ -24,11 +24,12 @@ const readTodos = async () => {
   return res.data;
 };
 
-const createTodo = async (name) => {
+const createTodo = async (name, date) => {
     let res = await axios.post(
         backendPath + '/todos',
         {
-            'name': name
+            'name': name,
+            'date': date
         },
         {
             headers: {
@@ -91,6 +92,14 @@ const signup = async (username, password) => {
     } 
 };
 
+const isFeatureEnabled = async (name) => {
+    try {
+        let res = await axios.get( backendPath + '/features/' + name);
+        return await res.data.enabled;
+    } catch (e) {
+        return e.response;
+    }
+};
 
 export {
     readTodos,
@@ -98,5 +107,6 @@ export {
     doneTodo,
     undoneTodo,
     login,
-    signup
+    signup,
+    isFeatureEnabled
 };

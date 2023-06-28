@@ -1,12 +1,12 @@
 <template>
     <div class="nav">
     <p>To-do List</p>
-    <a @click="handleLogout">Logout</a>
+    <button class="logout-button" @click="handleLogout">Logout</button>
     </div>
 </template>
 
 <script>
-export default{
+export default {
     name: 'Header',
     methods: {
         handleLogout()
@@ -46,4 +46,18 @@ div{
     color: rgba(235, 235, 235, 0.64);
     font-size: 22px;
 }
+
+.nav button.logout-button {
+  color: rgba(235, 235, 235, 0.64);
+  text-decoration: none;
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav button.logout-button:hover {
+    color: white;
+}
+
 </style>

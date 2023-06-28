@@ -1,7 +1,17 @@
 import LoginComponent from './components/LoginComponent.vue';
 import TodoList from '@/components/TodoList.vue';
+import TodoListSorted from '@/components/TodoListSorted.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { isFeatureEnabled } from './api';
+
+async function readFeatureToggle() {
+    if (await isFeatureEnabled('sortTodos')) {
+        return TodoListSorted;
+    } else {
+        return TodoList;
+    }
+}
 
 const routes = [
     {
@@ -11,7 +21,7 @@ const routes = [
     },
     {
         name: 'TodoList',
-        component: TodoList,
+        component: async () => await readFeatureToggle(),
         path: '/'
     },
     {

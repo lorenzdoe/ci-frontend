@@ -37,7 +37,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
 
-  background-color: #282828;
+  background-color: #252525;
   transition: background-color 0.2s;
 }
 

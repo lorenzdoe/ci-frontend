@@ -32,8 +32,10 @@ export default {
       this.todos = await readTodos();
     },
     async post(name) {
-      var todo = await createTodo(name);
-      this.todos.push(todo);
+      if(name != null){
+        var todo = await createTodo(name);
+        this.todos.push(todo);
+      }
     },
     async done(id) {
       var todo = await doneTodo(id);
