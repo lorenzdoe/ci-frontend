@@ -51,18 +51,25 @@ export default {
       return new Date(a.date) - new Date(b.date);
       });
 
-      const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      const today = new Date();
       const grouped = {}
       sorted.forEach(todo => {
         if(todo.date != null) {
-          let date = new Date(todo.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+          const date = new Date(todo.date);
 
-          // move undone todos from the past in today
-          date = date < today && !todo.done ? today : date;
-          if (!grouped[date]) {
-            grouped[date] = [];
+          // Move undone todos from the past to today
+          if (date < today && !todo.done) {
+            date.setFullYear(today.getFullYear());
+            date.setMonth(today.getMonth());
+            date.setDate(today.getDate());
           }
-          grouped[date].push(todo);
+
+          const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+          if (!grouped[formattedDate]) {
+            grouped[formattedDate] = [];
+          }
+          grouped[formattedDate].push(todo);
         }
         else {
           if (!grouped["without date"]) {
