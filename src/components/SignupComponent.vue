@@ -1,6 +1,6 @@
 <template>
     <!-- To add: login image/logo -->
-    <h1 id="inputText"></h1>
+    <h1 id="inputText">h</h1>
     <br><br>
     <div id="div" class="divStyle">
         <input id="input1" type="text" placeholder="username" v-model="username">

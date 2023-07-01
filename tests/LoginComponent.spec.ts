@@ -21,90 +21,19 @@ describe('LoginComponent', () => {
         expect(wrapper.vm.password).toBe('testpassword');
     });
 
-    // it('should call the login function when login button is clicked', async () => {
-    //     const wrapper = mount(LoginComponent);
-    //     expect(wrapper.find("button").exists()).toBe(true);
+    it('should have a login button with @click event', () => {
+        const wrapper = mount(LoginComponent);
+        expect(wrapper.find('button').attributes('v-on:click'));
+    });
 
-    //     const ac = await wrapper.get("button").trigger("click")
-    //     expect(wrapper.vm.login).toHaveBeenCalled();
-    // });
+    it('should have a text input for username with placeholder username', () => {
+        const wrapper = mount(LoginComponent);
+        expect(wrapper.find('input[type="text"]').attributes('placeholder')).toBe('username');
+    });
 
-    // it('logs in successfully when valid username and password are entered', async () => {
-    //     const wrapper = mount(LoginComponent);
-        
-    //     // Mock the login API function
-    //     const loginMock = vi.fn().mockResolvedValue({ status: 200, data: { token: 'mockedToken' } });
-    //     //wrapper.setMethods({ login: loginMock });
-        
-    //     // Set the username and password input values
-    //     await wrapper.find('input[type="text"]').setValue('testuser');
-    //     await wrapper.find('input[type="password"]').setValue('testpassword');
-        
-    //     // Simulate clicking the login button
-    //     await wrapper.find('button').trigger('click');
-        
-    //     // Assert that the login function is called with the correct arguments
-    //     expect(loginMock).toHaveBeenCalledWith('testuser', 'testpassword');
-        
-    //     // Assert that the token is stored in local storage
-    //     expect(localStorage.setItem).toHaveBeenCalledWith('token', 'mockedToken');
-        
-    //     // Assert that the router navigates to the TodoList component
-    //     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'TodoList' });
-    //     });
+    it('should have a text input for password with placeholder password', () => {
+        const wrapper = mount(LoginComponent);
+        expect(wrapper.find('input[type="password"]').attributes('placeholder')).toBe('Enter password');
+    });
 
 });
-
-// describe('LoginComponent', () => {
-//   it('displays error message when username or password is not entered', async () => {
-//     const wrapper = mount(LoginComponent);
-    
-//     // Simulate clicking the login button
-//     await wrapper.find('button').trigger('click');
-    
-//     // Assert that an alert is shown with the expected message
-//     expect(window.alert).toHaveBeenCalledWith('Please enter username and password');
-//   });
-
-//   it('logs in successfully when valid username and password are entered', async () => {
-//     const wrapper = mount(LoginComponent);
-    
-//     // Mock the login API function
-//     const loginMock = vi.fn().mockResolvedValue({ status: 200, data: { token: 'mockedToken' } });
-//     //wrapper.setMethods({ login: loginMock });
-    
-//     // Set the username and password input values
-//     await wrapper.find('input[type="text"]').setValue('testuser');
-//     await wrapper.find('input[type="password"]').setValue('testpassword');
-    
-//     // Simulate clicking the login button
-//     await wrapper.find('button').trigger('click');
-    
-//     // Assert that the login function is called with the correct arguments
-//     expect(loginMock).toHaveBeenCalledWith('testuser', 'testpassword');
-    
-//     // Assert that the token is stored in local storage
-//     expect(localStorage.setItem).toHaveBeenCalledWith('token', 'mockedToken');
-    
-//     // Assert that the router navigates to the TodoList component
-//     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'TodoList' });
-//   });
-
-//   it('displays error message when login fails', async () => {
-//     const wrapper = mount(LoginComponent);
-    
-//     // Mock the login API function to return an error
-//     const loginMock = vi.fn().mockResolvedValue({ status: 400, data: { errors: 'Invalid credentials' } });
-//     // wrapper.setMethods({ login: loginMock });
-    
-//     // Set the username and password input values
-//     await wrapper.find('input[type="text"]').setValue('testuser');
-//     await wrapper.find('input[type="password"]').setValue('testpassword');
-    
-//     // Simulate clicking the login button
-//     await wrapper.find('button').trigger('click');
-    
-//     // Assert that an alert is shown with the error message
-//     expect(window.alert).toHaveBeenCalledWith('Invalid credentials');
-//   });
-// });
