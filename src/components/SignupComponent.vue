@@ -1,19 +1,27 @@
 <template>
     <!-- To add: login image/logo -->
-    <h1>Create account</h1>
-    <div>
-        <input type="text" placeholder="username" v-model="username">
+    <h1 id="inputText"></h1>
+    <br><br>
+    <div id="div" class="divStyle">
+        <input id="input1" type="text" placeholder="username" v-model="username">
+        <input id="input2" type="password" placeholder="Enter password" v-model="password">
+
+        <button id="button" @click="signup"></button>
         <br>
-        <input type="password" placeholder="Enter password" v-model="password">
-        <br>
-        <button @click="signup">Sign-up</button>
-        <br><br>
         <a href="/login" style="color: antiquewhite; ">Already have an account?</a>
     </div>
 </template>
 
 <script>
 import {signup} from '@/api';
+import {
+    makeAdapter,
+    makeExperiment,
+    experimentVariants,
+} from "@/analytics/ab-testing";
+import AlephBet from "alephbet";
+
+let goal;
 export default{
     name: 'SignupComponent',
     data()
@@ -26,11 +34,14 @@ export default{
     methods:{
         async signup()
         {
-            let result = await signup(this.username, this.password);
+            let group = JSON.parse(localStorage.getItem('alephbet'));
+            let result = await signup(this.username, this.password, group['group:variant']);
 
             if(result.status == 201)
             {
                 this.$router.push({name: 'Login'});
+                goal.complete();
+             this.counter++;
             }
             else if(result.status == 400)
             {
@@ -44,6 +55,14 @@ export default{
                 alert('Something went wrong');
             }
         }
-    }
+    },
+    mounted() {
+            const name = "group";
+            const variants = experimentVariants[name];
+            const adapter = makeAdapter();
+            const experiment = makeExperiment(name, variants, adapter);
+            goal = new AlephBet.Goal("button clicked", {unique: false});
+            experiment.add_goal(goal);
+        },
 };
 </script>

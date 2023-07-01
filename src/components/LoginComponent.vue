@@ -45,6 +45,6 @@ export default{
                 alert(result.data.errors);
             }
         }
-    }
+    },
 };
 </script>
