@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {signup} from '@/api';
+import { signup } from '@/api';
 import {
     makeAdapter,
     makeExperiment,
@@ -22,47 +22,46 @@ import {
 import AlephBet from "alephbet";
 
 let goal;
-export default{
+export default {
     name: 'SignupComponent',
-    data()
-    {
+    data() {
         return {
             username: '',
             password: ''
         };
     },
-    methods:{
-        async signup()
-        {
+    methods: {
+        async signup() {
+            if (this.username == '' || this.password == '') {
+                alert('Please enter username and password');
+                return;
+            }
+
             let group = JSON.parse(localStorage.getItem('alephbet'));
             let result = await signup(this.username, this.password, group['group:variant']);
-
-            if(result.status == 201)
-            {
-                this.$router.push({name: 'Login'});
+            if (result.status == 201) {
+                this.$router.push({ name: 'Login' });
                 goal.complete();
-             this.counter++;
+                this.counter++;
             }
-            else if(result.status == 400)
-            {
-                if(result.data.errors.msg == undefined)
+            else if (result.status == 400) {
+                if (result.data.errors.msg != undefined)
                     alert(result.data.errors);
                 else
-                    alert(result.data.errors[0].msg + ' ' + result.data.errors[0].param);
+                    alert(result.data.errors[0].msg + ': ' + result.data.errors[0].param);
             }
-            else
-            {
+            else {
                 alert('Something went wrong');
             }
         }
     },
     mounted() {
-            const name = "group";
-            const variants = experimentVariants[name];
-            const adapter = makeAdapter();
-            const experiment = makeExperiment(name, variants, adapter);
-            goal = new AlephBet.Goal("button clicked", {unique: false});
-            experiment.add_goal(goal);
-        },
+        const name = "group";
+        const variants = experimentVariants[name];
+        const adapter = makeAdapter();
+        const experiment = makeExperiment(name, variants, adapter);
+        goal = new AlephBet.Goal("button clicked", { unique: false });
+        experiment.add_goal(goal);
+    },
 };
 </script>
