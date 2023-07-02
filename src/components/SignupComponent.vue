@@ -1,6 +1,6 @@
 <template>
     <!-- To add: login image/logo -->
-    <h1 id="inputText">h</h1>
+    <h1 id="inputText"></h1>
     <br><br>
     <div id="div" class="divStyle">
         <input id="input1" type="text" placeholder="username" v-model="username">
@@ -14,14 +14,8 @@
 
 <script>
 import { signup } from '@/api';
-import {
-    makeAdapter,
-    makeExperiment,
-    experimentVariants,
-} from "@/analytics/ab-testing";
-import AlephBet from "alephbet";
 
-let goal;
+let group;
 export default {
     name: 'SignupComponent',
     data() {
@@ -37,12 +31,9 @@ export default {
                 return;
             }
 
-            let group = JSON.parse(localStorage.getItem('alephbet'));
-            let result = await signup(this.username, this.password, group['group:variant']);
+            let result = await signup(this.username, this.password, group);
             if (result.status == 201) {
                 this.$router.push({ name: 'Login' });
-                goal.complete();
-                this.counter++;
             }
             else if (result.status == 400) {
                 if (result.data.errors.msg != undefined)
@@ -53,15 +44,41 @@ export default {
             else {
                 alert('Something went wrong');
             }
+        },
+        setGroupA(){
+        localStorage.setItem('group', 'A');
+        document.getElementById('inputText').textContent = 'Want to be part of our evergrowing family?';
+        document.getElementById('input1').className = 'inputStyle';
+        document.getElementById('input2').className = 'inputStyle';
+        document.getElementById('button').className = 'buttonStyle';
+        document.getElementById('button').textContent = 'Join now!';
+        },
+        setGroupB(){
+            localStorage.setItem('group', 'B');
+            document.getElementById('inputText').textContent = 'Create account:';
+            document.getElementById('button').textContent = 'Sign-up!';
         }
     },
     mounted() {
-        const name = "group";
-        const variants = experimentVariants[name];
-        const adapter = makeAdapter();
-        const experiment = makeExperiment(name, variants, adapter);
-        goal = new AlephBet.Goal("button clicked", { unique: false });
-        experiment.add_goal(goal);
-    },
+        if(localStorage.group == undefined) {
+            if (Math.random() <= 0.5) {
+                group = 'A';
+                this.setGroupA();
+            }
+            else {
+                group = 'B';
+                this.setGroupB();
+            }
+        }   
+        else {
+            group = localStorage.group;
+            if (group == 'A') {
+                this.setGroupA();
+            }
+            else {
+                this.setGroupB();
+            }
+        }
+    }
 };
 </script>

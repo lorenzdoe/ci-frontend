@@ -80,12 +80,12 @@ const login = async (username, password) => {
     }   
 };
 
-const signup = async (username, password, variant) => {
+const signup = async (username, password, group) => {
     try {    
         let res = await axios.post( backendPath + '/users', {
             username: username,
             password: password,
-            variant: variant
+            group: group
         });
         return res;
     } catch (e) {

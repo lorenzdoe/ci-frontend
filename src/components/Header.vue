@@ -15,7 +15,8 @@ export default {
     methods: {
         handleLogout()
         {
-            localStorage.clear();
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
             this.$router.push({name: 'Login'});
         },
         async toggleFeature() {
