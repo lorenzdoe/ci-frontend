@@ -87,9 +87,9 @@ pipeline {
     failure {
       // perform when build fails
       // email developers
-      emailext body: 'Test Message',
-        subject: 'Test Subject',
-        to: 'if21b084@technikum-wien.at'
+      emailext body: "Build number ${env.BUILD_NUMBER} failed. Check the Jenkins console output for more details.",
+        subject: "Build failed: ${env.JOB_NAME}",
+        to: 'if21b084@technikum-wien.at,if21b052@technikum-wien.at'
     }
   }
 
