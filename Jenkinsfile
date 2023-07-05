@@ -89,7 +89,7 @@ pipeline {
       // email developers
       emailext body: 'Test Message',
         subject: 'Test Subject',
-        to: [developers()]
+        to: 'if21b084@technikum-wien.at'
     }
   }
 
