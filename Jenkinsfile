@@ -88,8 +88,8 @@ pipeline {
       // perform when build fails
       // email developers
       emailext body: 'Test Message',
-        recipientProviders: [developers()],
-        subject: 'Test Subject'
+        subject: 'Test Subject',
+        to: [developers()]
     }
   }
 
