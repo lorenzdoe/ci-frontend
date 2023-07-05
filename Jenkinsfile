@@ -87,10 +87,9 @@ pipeline {
     failure {
       // perform when build fails
       // email developers
-        subject: "Build failed",
-        body: "Build failed. Check the Jenkins console output for more details.",
+      emailext body: 'Test Message',
         recipientProviders: [developers()],
-        attachLog: true
+        subject: 'Test Subject'
     }
   }
 
