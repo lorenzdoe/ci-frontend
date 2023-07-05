@@ -102,6 +102,8 @@ const isFeatureEnabled = async (name) => {
     }
 };
 
+console.log()
+
 const toggleFeature = async (name) => {
     try {
         let res = await axios.put(
