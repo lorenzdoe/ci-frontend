@@ -83,6 +83,17 @@ pipeline {
     }
   }
 
+  post {
+    failure {
+      // perform when build fails
+      // email developers
+        subject: "Build failed: ${env.JOB_NAME}",
+        body: "Build number ${env.BUILD_NUMBER} failed. Check the Jenkins console output for more details.",
+        recipientProviders: [developers()],
+        attachLog: true
+    }
+  }
+
   triggers {
     githubPush()
   }
