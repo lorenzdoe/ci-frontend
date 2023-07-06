@@ -1,5 +1,6 @@
 <template>
 <Header />
+<h1 class= "title">do something</h1>
   <ul>
     <li>
       <TodoInput @new-todo="post" />
@@ -60,6 +61,10 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  text-align: center;
+  margin-bottom: 5%;
+}
 ul {
   list-style-type: none;
 }
