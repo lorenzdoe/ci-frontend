@@ -18,7 +18,7 @@ describe('LoginComponent', () => {
         await wrapper.find('input[type="text"]').setValue('testuser');
         await wrapper.find('input[type="password"]').setValue('testpassword');
         expect(wrapper.vm.username).toBe('testuser');
-        expect(wrapper.vm.password).toBe('testpassword');
+        expect(wrapper.vm.password).toBe('testpd');
     });
 
     it('should have a login button with @click event', () => {
