@@ -1,6 +1,6 @@
 <template>
 <Header />
-<h1 class= "title">do something</h1>
+<h1 class= "title">hello test</h1>
   <ul>
     <li>
       <TodoInput @new-todo="post" />
